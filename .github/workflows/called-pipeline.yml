@@ -15,6 +15,7 @@ env:
   ORCH_ACC_NAME: ${{vars.ACCOUNT_NAME}}
   CLIVERSION: ${{vars.CLI_VERSION}}
   APPSCOPES: ${{vars.APP_SCOPES}}
+  PROJECT_JSON_PATH: ${{vars.PROJECT_JSON_PATH}}
 
 jobs:
   
