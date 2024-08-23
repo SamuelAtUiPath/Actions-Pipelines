@@ -5,6 +5,12 @@ name: Called
 # Controls when the workflow will run
 on:
   workflow_call:
+    inputs:
+        PROJECT_JSON_PATH:
+          type: string
+          description: 'project.json file path from the repository'
+          required: true
+          default: 'AutomationFolder\project.json'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 env:
@@ -15,7 +21,6 @@ env:
   ORCH_ACC_NAME: ${{vars.ACCOUNT_NAME}}
   CLIVERSION: ${{vars.CLI_VERSION}}
   APPSCOPES: ${{vars.APP_SCOPES}}
-  PROJECT_JSON_PATH: ${{vars.PROJECT_JSON_PATH}}
 
 jobs:
   
