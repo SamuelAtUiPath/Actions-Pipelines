@@ -19,7 +19,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 env:
-  ORCH_URL: ${{vars.CLOUD_URL}}/${{vars.ACCOUNT_NAME}}/$TENANT_NAME
+  ORCH_URL: ${{vars.CLOUD_URL}}/${{vars.ACCOUNT_NAME}}/${{vars.TENANT_NAME}}
   ORCH_CLIENT_ID: ${{secrets.OAUTH_CLIENT_ID}}
   ORCH_USER_KEY: ${{secrets.OAUTH_CLIENT_SECRET}}
   ORCH_ACC_NAME: ${{vars.ACCOUNT_NAME}}
@@ -59,4 +59,4 @@ jobs:
       
       - name: Deploy Package
         shell: pwsh
-        run: ${{ github.workspace }}\uipathcli\tools\uipcli.exe package deploy ${{github.workspace }}\packages\ ${{vars.CLOUD_URL}} $TENANT_NAME -A ${{vars.ACCOUNT_NAME}} -I ${{secrets.OAUTH_CLIENT_ID}} -S ${{secrets.OAUTH_CLIENT_SECRET}} --applicationScope "${{vars.APP_SCOPES}}"
+        run: ${{ github.workspace }}\uipathcli\tools\uipcli.exe package deploy ${{github.workspace }}\packages\ ${{vars.CLOUD_URL}} ${{vars.TENANT_NAME}} -A ${{vars.ACCOUNT_NAME}} -I ${{secrets.OAUTH_CLIENT_ID}} -S ${{secrets.OAUTH_CLIENT_SECRET}} --applicationScope "${{vars.APP_SCOPES}}"
