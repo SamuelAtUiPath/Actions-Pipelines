@@ -60,3 +60,17 @@ jobs:
       - name: Deploy Package
         shell: pwsh
         run: ${{ github.workspace }}\uipathcli\tools\uipcli.exe package deploy ${{github.workspace }}\packages\ ${{vars.CLOUD_URL}} ${{inputs.TENANT_NAME}} -A ${{vars.ACCOUNT_NAME}} -I ${{secrets.OAUTH_CLIENT_ID}} -S ${{secrets.OAUTH_CLIENT_SECRET}} --applicationScope "${{vars.APP_SCOPES}}"
+
+      - name: Build Tests
+        shell: pwsh
+        run: |
+          Set-Variable -Name PACKAGE_VERSION -Value (Get-Date).ToString("yyyyMMdd.HHmmss")
+          echo $PACKAGE_VERSION
+          ${{ github.workspace }}\uipathcli\tools\uipcli.exe package pack ${{github.workspace}}\${{inputs.PROJECT_JSON_PATH}} -o ${{ github.workspace }}\packages\tests --outputType Tests -l en-US -v $PACKAGE_VERSION
+          Get-ChildItem -path "${{github.workspace}}\packages\tests" -r
+          
+      - name: Deploy Tests
+        shell: pwsh
+        run: ${{ github.workspace }}\uipathcli\tools\uipcli.exe package deploy ${{github.workspace }}\packages\tests\ ${{vars.CLOUD_URL}} ${{inputs.TENANT_NAME}} -A ${{vars.ACCOUNT_NAME}} -I ${{secrets.OAUTH_CLIENT_ID}} -S ${{secrets.OAUTH_CLIENT_SECRET}} --applicationScope "${{vars.APP_SCOPES}}"
+
+  
